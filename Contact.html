@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | PEFA Githurai</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Caveat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="slideshow-container">
+    <div class="mySlides fade">
+      <img src="/images/arms.jpg" style="width:100%">
+    </div>
+
+    <div class="mySlides fade">
+      <img src="/images/church.jpg" style="width:100%">
+    </div>
+    
+    <div style="text-align:center">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      
+    </div>
+  </div>
+
+    <div class="navbar">
+        <span><ion-icon name="call-outline"></ion-icon>0797929470</span>
+            <ul>
+                <li><a href="https://www.facebook.com/pefagithuraicathedral" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                <li><a href="https://www.youtube.com/@PEFAGithuraiCathedral"target="_blank"><ion-icon name="logo-youtube"></ion-icon></a></li>
+                <li><a href="https://www.instagram.com/pefachurchgithurai/"target="_blank"><ion-icon name="logo-instagram"></ion-icon></a></li>
+            </ul>
+    </div>
+        <nav>
+            <div class="logo">
+              <a href="#"><img src="images/pefa.png" alt="logo image"></a>
+            </div> 
+            <div class="toggle">
+                <a href=""><ion-icon name="menu-outline"></ion-icon></a>
+            </div>   
+                <ul class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                    <li><a href="Ministries.html">Ministries</a></li>
+                    <li><a href="Store.html">Store</a></li>
+                </ul>
+        </nav>
+        
+        <div class="contact-container">
+            <h2>Send Us Your Prayer Request</h2>
+            <form id="prayerForm">
+              <div class="input-group">
+                <input type="text" id="name" name="name" required>
+                <label for="name">Your Name</label>
+              </div>
+              <div class="input-group">
+                <input type="email" id="email" name="email" required>
+                <label for="email">Your Email</label>
+              </div>
+              <div class="input-group">
+                <textarea id="message" name="message" required></textarea>
+                <label for="message">Your Prayer Request</label>
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        
+          <script src="contact.js"></script>
+          
+</body>
+</html>
