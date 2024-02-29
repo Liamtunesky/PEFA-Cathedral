@@ -1,118 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | PEFA Githurai</title>
-    <link rel="stylesheet" href="styles.css">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Caveat:wght@700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="navbar">
-        <span><ion-icon name="call-outline"></ion-icon>0797929470</span>
-            <ul>
-                <li><a href="https://www.facebook.com/pefagithuraicathedral" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                <li><a href="https://www.youtube.com/@PEFAGithuraiCathedral"target="_blank"><ion-icon name="logo-youtube"></ion-icon></a></li>
-                <li><a href="https://www.instagram.com/pefachurchgithurai/"target="_blank"><ion-icon name="logo-instagram"></ion-icon></a></li>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>PEFA Admin Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">Admin Panel</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!" onclick="logout()">Logout</a></li>
+
+                    </ul>
+                </li>
             </ul>
-    </div>
-        <nav>
-            <div class="logo">
-              <a href="#"><img src="images/pefa.png" alt="logo image"></a>
-            </div> 
-            <div class="toggle">
-                <a href=""><ion-icon name="menu-outline"></ion-icon></a>
-            </div>   
-                <ul class="menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="About.html">About Us</a></li>
-                    <li><a href="Contact.html">Contact</a></li>
-                    <li><a href="Ministries.html">Ministries</a></li>
-                    <li><a href="Store.html">Store</a></li>
-            <button class="button" onclick=location="login.html"><span>Login</span></button>
-            </ul>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-            <script>
-                $(function(){
-                    $(".toggle").on("click", function(){
-                        if($(".menu").hasClass("active")){
-                            $(".menu").removeClass("active");
-                            $(this).find("a").html("<ion-icon name='menu-outline'></ion-icon>");
-                        } else {
-                            $(".menu").addClass("active");
-                            $(this).find("a").html("<ion-icon name='close-outline'></ion-icon>");
-                        }
-                    }); 
-                });
-            </script>
-            </script>
         </nav>
-        <div class="homepage">
-            <video autoplay loop muted plays-inline class="background-clip">
-            <source src="images/flourish.mp4" type="video/mp4"> 
-            </video>
-            <div class="cont">
-            <h1>PURSUE . OVERTAKE . RECOVER ALL</h1>
-            <a href="https://www.youtube.com/@PEFAGithuraiCathedral">Watch us Online</a>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Profile</div>
+                                <img src="/images/admin.png" alt="">
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <!-- New Section for Church Management -->
+            <div class="sb-sidenav-menu-heading">Church Management</div>
+            <a class="nav-link" href="members.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                Members
+            </a>
+            <a class="nav-link" href="donations.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                Donations
+            </a>
+            <a class="nav-link" href="events.html">
+                <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
+                Events
+            </a>
+            <!-- Add more links for other features as needed -->
+        </div>
+        </div>
+                <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Church Admin
+                    </div>
+                </nav>
             </div>
-        </div>
-        <!-- Church overall mission -->
-       <div class="container">
-        <section class="mission-section">
-            <h1><u>About Us</u></h1>
-                <p>All Nations Gospel Church (PEFA) stands as a beacon of hope and enlightenment,<br> 
-                    where seekers of truth find solace in the comprehensive teaching of the Bible,<br> 
-                    guiding them towards a profound relationship with Christ<br> 
-                    and a life filled with purpose.</p>    
-       </section>
-       <section>      
-       <div class="content">
-            <div class="box mission">
-                         <h3><u>Our Mission</u></h3>
-                                <ul>
-                                 <li>To serve our community with love and compassion</li>
-                                 <li>To spread the teachings of Christ through outreach programs</li>
-                                 <li>To provide a welcoming and inclusive environment for all</li>
-                                </ul>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Church Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">
+                                        Total Number of Men: <?php echo $total_men_count; ?>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">
+                                        Total Number of Women: <?php echo $total_women_count; ?>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">
+                                        Total Number of Youths: <?php echo $total_youths_count; ?>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">
+                                        Total Number of Members: <?php echo $total_members_count; ?>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="box vision">
-                        <h3>Our Vision</h3>
-                        <ul>
-                        <li>To create a world where everyone lives in harmony and peace</li>
-                        <li>To be a beacon of hope and inspiration for those in need</li>
-                        <li>To foster spiritual growth and development in our congregation</li>
-                        </ul>
-                    </div>
-                </div>
-                <script src="script.js"></script>
-        </section>
-        </div> 
-        <div class="map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.941379149268!2d36.9117733!3d-1.2013076999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f3fcaa54b5ef9%3A0x74987302850ff8d3!2sPEFA%20Church%20Githurai%2044!5e0!3m2!1sen!2ske!4v1707909877300!5m2!1sen!2ske" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <div class="footer-container">
-            <div class="footer">
-                <div class="footer-heading footer-1">
-                    <h2>About us</h2><br>
-                    <p>Welcome to All Nations Gospel Church (PEFA),<br> 
-                        where Christ is revealed through vibrant Bible teaching.<br> 
-                        Join us as we illuminate hearts with His truth and make Him known to all.</p>
-                </div>
-                <div class="footer-heading footer-2">
-                    <h2>Contact us</h2><br>
-                        <P class="email-id">pefachurchgithurai@gmail.com</P>
-                        <h4>+254 797 929470</h4>
-                </div>
-                <div class="footer-heading footer-3">
-                    <h2>Location</h2>
-                    <p>Ngumba Road Off Thika Nairobi Superhigway</p>
-                    <p>Nairobi</p>
-                    <p>P.O. BOX 00400</p>
-                </div>
+                </main>
                 
+                        
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Contact</th>
+                                            <th>Email</th>
+                                            <th>Age</th>
+                                            <th>Join date</th>
+                                            <th>Active Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; PEFA Githurai Media Team 2024</div>
+                            <div>
+                                <a href="#" id="privacyPolicyLink" onclick="openPopup('privacy')">Privacy Policy</a>
+    &middot;
+    <a href="#" id="termsConditionsLink" onclick="openPopup('terms')">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
-          </div>
-</body>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+    </body>
+</html>

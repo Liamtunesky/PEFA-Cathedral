@@ -108,11 +108,13 @@
             <li><a href="Store.html">Store</a></li>
         </ul>
     </nav>
+       
+    <!-- Product containers will go here -->
     <div class="container">
-        <!-- Product containers will go here -->
+        
     </div>
     
-    Shopping Cart Section 
+    <!--Shopping Cart Section--> 
     <div class="shopping-cart">
         <h2>Shopping Cart</h2>
         <ul id="cart-items">

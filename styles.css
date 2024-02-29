@@ -1,19 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 *{
     box-sizing: border-box;
     padding: 0;
     margin: 0;
     font-family: "Open Sans", sans-serif;   
+    
 }
+
 .homepage{
   width:100%;
   height:100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.473);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .cont{
   text-align: center;
   
@@ -176,7 +180,7 @@ nav a:hover{
 
 /* Mission Section */
 .mission-section {
-  margin: 20px 0;
+  margin: 30px ;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
@@ -228,9 +232,15 @@ section {
   .mission-vision-section {
     padding: 10px;
   }
-
+  .content{
+    flex-direction: column;
+  }
   .content h3 {
     font-size: 20px;
+  }
+  .box {
+    width: 100%; /* Take up full width on smaller screens */
+    margin-bottom: 20px; /* Add space between boxes */
   }
 }
 
@@ -241,8 +251,9 @@ section {
 .box {
   width: 45%; /* Adjust width as needed */
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #fff9f9;
   border-radius: 5px;
+  
 }
 .mission {
   background-color: #f0f0f0;
@@ -261,45 +272,54 @@ section {
   left: 0;
   bottom: 0;
 }
+.map-container {
+  width: 100%;
+  max-width: 1000px; /* Adjust as needed */
+  margin: 0 auto;
+  overflow: hidden;
+}
 .footer-container {
   width: 100%;
-  position: absolute;
   background: linear-gradient(to right, #00093c, #2d0b00);
   color: #fff;
-  padding: 4rem 0 4rem 0;
+  padding: 4rem 0;
   border-top-left-radius: 125px;
   font-size: 13px;
   line-height: 20px;
-  
 }
-.footer{
+
+.footer {
   width: 100%;
-  height:20vh;
   display: flex;
-  margin: 0 auto; 
   flex-wrap: wrap;
-  align-items: flex-start;
   justify-content: space-evenly;
+  align-items: flex-start;
+  padding: 0 2rem; /* Adjust horizontal padding */
 }
-.footer-heading{
-  display: flex;
-  flex-direction: column;
-  margin-right: 4rem;
-}
-.footer-heading h2{
-  margin-right: 2rem;
-}
-.footer-heading p{
-  margin-bottom: 0.5rem;
-  font-family:Arial, Helvetica, sans-serif;
-  font-size: medium;
-}
-@media screen and (max-width: 1150px){
-  .footer{
-    height:50vh;
-  }
+
+.footer-heading {
+  flex: 1; /* Equal width for each column */
+  margin-bottom: 2rem; /* Add space between columns */
   
 }
+
+.footer-heading h2 {
+  margin-bottom: 1rem; /* Add space below heading */
+  color: #fff;
+}
+
+.footer-heading p {
+  margin: 0; /* Reset margin for paragraphs */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 1150px) {
+  .footer-heading {
+    flex-basis: 100%; /* Stack columns on smaller screens */
+    text-align: center; /* Center align content */
+  }
+}
+
 .slideshow-container {
   position: fixed;
   width: 100%;
@@ -398,4 +418,71 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.product {
+  width: 250px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.product-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.product-info h2 {
+  margin-bottom: 10px;
+}
+
+.product-info p {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.product-info button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.product-info button:hover {
+  background-color: #0056b3;
+}
+
+.login-container{
+  max-width: 600px;
+  margin:0 auto;
+  padding:50px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.form-group{
+  margin-bottom:30px;
 }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="checkout.css">
+<title>Billing Portal</title>
+</head>
+<body>
+
+<div class="container">
+    <form id="checkoutForm">
+        <div class="row">
+            <div class="col">
+                <h3 class="title">billing address</h3>
+                <div class="inputBox">
+                    <span>First name :</span>
+                    <input type="text" id="fullName" placeholder="Peter Liam">
+                </div>
+                <div class="inputBox">
+                    <span>Last name :</span>
+                    <input type="text" id="fullName" placeholder="Peter Liam">
+                </div>
+                <div class="inputBox">
+                    <span>Email :</span>
+                    
+                    <input type="email" id="email" placeholder="example@example.com"pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                    <div id="emailError" class="error"></div>  
+                    <!--Error message placeholder-->
+                </div>
+               
+            </div>   
+            <div class="col">
+                <h3 class="title">payment</h3>
+                <div class="inputBox">
+                    <span>Payment method :</span>
+                    <img src="images/mpesa.png" alt="">
+                </div>
+                
+                <div class="inputBox">
+                    <span>Contact :</span>
+                    <input type="text" id="contact" placeholder="0700 000 000">
+                </div>
+                <div class="flex">
+                    <div class="inputBox">
+                        <span>Item :</span>
+                        <input type="text" id="city" placeholder="Bible">
+                    </div>
+                    <div class="inputBox">
+                        <span>Quantity :</span>
+                        <input type="text" id="state" placeholder="1">
+                    </div>
+                </div>
+            </div>
+            
+        
+
+            <input type="button" value="proceed to checkout" class="submit-btn" onclick="processPayment()">
+        </div>
+    </form>
+</div>    
+
+<script>
+    function processPayment() {
+        // Get form data
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const address = document.getElementById('address').value;
+        const country = document.getElementById('country').value;
+        const city = document.getElementById('city').value;
+        const state = document.getElementById('state').value;
+        const contact = document.getElementById('contact').value;
+
+        // Create payment request object
+        const paymentRequest = {
+            fullName,
+            email,
+            address,
+            country,
+            city,
+            state,
+            contact
+            // Add more payment details as needed
+        };
+
+        // Send payment request to server using fetch API
+        fetch('/process-payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(paymentRequest)
+        })
+        .then(response => {
+            if (response.ok) {
+                // Payment successful, redirect to confirmation page or show success message
+                window.location.href = '/payment-success';
+            } else {
+                // Payment failed, display error message
+                alert('Payment failed. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error processing payment:', error);
+            // Display error message
+            alert('An error occurred while processing payment. Please try again later.');
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch country data from Rest Countries API
+        fetch('https://restcountries.com/v3.1/all')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('country');
+
+                // Loop through data and add options to select dropdown
+                data.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country.name.common; // Use country name as value
+                    option.textContent = `${country.name.common} (+${country.callingCodes[0]})`;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching country data:', error));
+    });
+</script>
+</body>
+</html>
