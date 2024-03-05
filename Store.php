@@ -110,7 +110,7 @@
     </nav>
        
     <!-- Product containers will go here -->
-    <div class="container">
+    <div class="product-container">
         
     </div>
     

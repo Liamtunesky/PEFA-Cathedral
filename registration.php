@@ -158,6 +158,9 @@ if (isset($_SESSION["user"])) {
             <div class="form-group">
                 <input type="text" class="form-control" name="contact" placeholder="Contact:">
             </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="qualification" placeholder="Qualification:">
+            </div>
             <div class="form-btn">
                 <input type="submit" class="btn btn-primary" value="Register" name="submit">
             </div>
