@@ -51,13 +51,6 @@
         </div>
         <style>
              /* Added styling for email validation */
-#email.invalid {
-   border: 1px solid red;
- }
-        
- #email.valid {
-   border: 1px solid green;
-}
 .slideshow-container {
     position: fixed;
     width: 100%;
@@ -144,8 +137,8 @@
         <form id="prayerForm" method="POST">
             <input type="text" name="firstname" placeholder="First Name" required><br>
             <input type="text" name="lastname" placeholder="Last Name" required><br>
-            <input type="email" name="email" id="email" placeholder="Email" required><br>
-            <input type="tel" name="contact_number" id="contact" placeholder="Enter your contact (e.g., 0700 000 000)" maxlength="12" required><br>
+            <input type="email" name="email" id="email" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"><br>
+            <input type="tel" name="contact_number" id="contact" placeholder="Enter your contact (e.g., 0700000000)" maxlength="10" pattern="[0-9]{10}" title="Please enter a 10-digit contact number" required><br>
             <textarea name="request" placeholder="Your Prayer Request" required></textarea><br>
             <button type="button" onclick="submitForm()">Submit</button>
         </form>

@@ -62,21 +62,21 @@
         </div>
 
     <!-- Prayer request popup window -->
-    <div id="prayerRequestPopup" class="prayer-request-popup">
-        <div class="prayer-request-content">
-            <span class="close" onclick="closePrayerRequestPopup()">&times;</span>
-            <h2>Prayer Request</h2>
-            <form id="prayerForm" method="POST">
-                <!-- Your form fields go here -->
-                <input type="text" name="firstname" placeholder="First Name" required><br>
-                <input type="text" name="lastname" placeholder="Last Name" required><br>
-                <input type="email" name="email" placeholder="Email" required><br>
-                <input type="tel" name="contact" placeholder="Enter your contact (e.g., 0700 000 000)" maxlength="12" pattern="[0-9]{4} [0-9]{3} [0-9]{3}" title="Please enter a valid contact number in the format 0700 000 000" required><br>
-                <textarea name="request" placeholder="Your Prayer Request" required></textarea><br>
-                <button type="button" onclick="submitForm()">Submit</button>
-            </form>
-        </div>
+<div id="prayerRequestPopup" class="prayer-request-popup">
+    <div class="prayer-request-content">
+        <span class="close" onclick="closePrayerRequestPopup()">&times;</span>
+        <h2>Prayer Request</h2>
+        <form id="prayerForm" method="POST"action="submit_prayer_request.php" onsubmit="return validateForm()">
+            <!-- Your form fields go here -->
+            <input type="text" name="firstname" id="firstname" placeholder="First Name" required><br>
+            <input type="text" name="lastname" id="lastname" placeholder="Last Name" required><br>
+            <input type="email" name="email" id="email" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"><br>
+            <input type="tel" name="contact_number" id="contact" placeholder="Enter your contact (e.g., 0700000000)" maxlength="10" pattern="[0-9]{10}" title="Please enter a 10-digit contact number" required><br>
+            <textarea name="request" id="request" placeholder="Your Prayer Request" required></textarea><br>
+            <button type="submit">Submit</button>
+        </form>
     </div>
+</div>
     <div id="notification"></div>
         
             <div class="parallax-container">
@@ -328,15 +328,53 @@
 });
     // JavaScript to dynamically update the current year
     document.getElementById("currentYear").innerText = new Date().getFullYear();
-     // Function to open the prayer request popup
-     function openPrayerRequestPopup() {
+    function openPrayerRequestPopup() {
         document.getElementById('prayerRequestPopup').style.display = 'block';
     }
 
-    // Function to close the prayer request popup
     function closePrayerRequestPopup() {
         document.getElementById('prayerRequestPopup').style.display = 'none';
     }
+
+    function validateForm() {
+        var firstname = document.getElementById("firstname").value;
+        var lastname = document.getElementById("lastname").value;
+        var email = document.getElementById("email").value;
+        var contact = document.getElementById("contact_number").value;
+        var request = document.getElementById("request").value;
+
+        // Check if any field is empty
+        if (firstname.trim() === '' || lastname.trim() === '' || email.trim() === '' || contact.trim() === '' || request.trim() === '') {
+            alert("Please fill in all fields.");
+            return false; // Prevent form submission
+        }
+
+        // Additional validation for email format
+        var emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+        if (!emailPattern.test(email)) {
+            alert("Please enter a valid email address.");
+            return false; // Prevent form submission
+        }
+
+        // If all validations pass, return true to allow form submission
+        return true;
+    }
+   // Get the contact input element
+   var contactInput = document.getElementById('contact_number');
+
+// Add a change event listener to validate the input after the user has finished entering the number
+contactInput.addEventListener('change', function() {
+    // Get the entered value
+    var enteredValue = this.value;
+
+    // Validate the entered value
+    var isValid = /^[0-9]{10}$/.test(enteredValue);
+
+    // If the entered value is not valid, show an alert
+    if (!isValid) {
+        alert('Please enter a 10-digit contact number.');
+    }
+});
     function submitForm() {
         var form = document.getElementById("prayerForm");
         var formData = new FormData(form);
@@ -360,6 +398,21 @@
             console.error(error);
             // Display error message
             document.getElementById("notification").innerText = "Failed to submit prayer request. Please try again later.";
+        });
+        // JavaScript to add/remove red border on focus/blur
+        const emailInput = document.getElementById('email');
+
+        // Add event listener for input focus
+        emailInput.addEventListener('focus', function() {
+            this.style.border = ''; // Reset border on focus
+        });
+
+        // Add event listener for input blur
+        emailInput.addEventListener('blur', function() {
+            // Check validity and set border color accordingly
+            if (!this.checkValidity()) {
+                this.style.border = '1px solid red';
+            }
         });
 
     }

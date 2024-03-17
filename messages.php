@@ -73,6 +73,45 @@ $passwordRequests = getPasswordRequestsFromDatabase($conn);
    
 </head>
 <body>
+    <style>
+        /* Style for modal */
+        .modal-dialog {
+            max-width: 800px;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-body {
+            padding-bottom: 20px;
+        }
+
+        .modal-footer {
+            border-top: none;
+        }
+        /* Close Button Style */
+        .close {
+            color: #aaa;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        </style>
 <div id="layoutSidenav_content">
     <div class="container-fluid px-4">
         <div class="row">
@@ -202,7 +241,24 @@ $passwordRequests = getPasswordRequestsFromDatabase($conn);
         </div>
     </div>
 </div>
-
+<!-- Delete Prayer Request Confirmation Modal -->
+<div class="modal fade" id="deletePrayerRequestModal" tabindex="-1" aria-labelledby="deletePrayerRequestModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePrayerRequestModalLabel">Delete Prayer Request</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this prayer request?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeletePrayerRequest">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Edit Password Request Modal -->
 <div class="modal fade" id="editPasswordRequestModal" tabindex="-1" aria-labelledby="editPasswordRequestModalLabel" aria-hidden="true">
@@ -215,20 +271,60 @@ $passwordRequests = getPasswordRequestsFromDatabase($conn);
             <div class="modal-body">
                 <!-- Form fields for editing password requests -->
                 <form id="editPasswordRequestForm">
-                    <div class="mb-3">
-                        <label for="editPasswordFirstName" class="form-label">First Name</label>
+                    <div class="form-group">
+                        <label for="editPasswordFirstName">First Name</label>
                         <input type="text" class="form-control" id="editPasswordFirstName" name="editPasswordFirstName">
                     </div>
-                    <div class="mb-3">
-                        <label for="editPasswordLastName" class="form-label">Last Name</label>
+                    <div class="form-group">
+                        <label for="editPasswordLastName">Last Name</label>
                         <input type="text" class="form-control" id="editPasswordLastName" name="editPasswordLastName">
                     </div>
-                    <!-- Add other fields here -->
+                    <div class="form-group">
+                        <label for="editPasswordEmail">Email</label>
+                        <input type="email" class="form-control" id="editPasswordEmail" name="editPasswordEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="editPasswordContact">Contact</label>
+                        <input type="text" class="form-control" id="editPasswordContact" name="editPasswordContact">
+                    </div>
+                    <div class="form-group">
+                        <label for="editPasswordDate">Date</label>
+                        <input type="text" class="form-control" id="editPasswordDate" name="editPasswordDate" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPasswordStatus">Status</label>
+                        <select class="form-control" id="editPasswordStatus" name="editPasswordStatus">
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<!-- Delete Password Request Confirmation Modal -->
+<div class="modal fade" id="deletePasswordRequestModal" tabindex="-1" aria-labelledby="deletePasswordRequestModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePasswordRequestModalLabel">Delete Password Request</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this password request?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeletePasswordRequest">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
     // Function to populate edit modal for prayer request
@@ -259,10 +355,64 @@ $passwordRequests = getPasswordRequestsFromDatabase($conn);
         // Populate the modal with the request data
         document.getElementById('editPasswordFirstName').value = selectedRequest.firstname;
         document.getElementById('editPasswordLastName').value = selectedRequest.lastname;
-        // Populate other fields similarly
+        document.getElementById('editPasswordEmail').value = selectedRequest.email;
+        document.getElementById('editPasswordContact').value = selectedRequest.contact_number;
+        document.getElementById('editPasswordDate').value = selectedRequest.date;
+        document.getElementById('editPasswordStatus').value = selectedRequest.status;
 
         // Show the modal
         $('#editPasswordRequestModal').modal('show');
+    }
+   // Function to handle delete confirmation for prayer requests
+   function deletePrayerRequest(id) {
+        // Set the ID of the request to be deleted
+        $('#confirmDeletePrayerRequest').attr('data-id', id);
+        // Show the delete confirmation modal
+        $('#deletePrayerRequestModal').modal('show');
+    }
+
+    // Function to handle delete confirmation for password requests
+    function deletePasswordRequest(id) {
+        // Set the ID of the request to be deleted
+        $('#confirmDeletePasswordRequest').attr('data-id', id);
+        // Show the delete confirmation modal
+        $('#deletePasswordRequestModal').modal('show');
+    }
+
+    // Event listener for confirmed delete of prayer request
+    $('#confirmDeletePrayerRequest').click(function() {
+        var id = $(this).attr('data-id');
+        // Perform delete action for prayer request with ID 'id'
+        deletePrayerRequestFromDatabase(id);
+    });
+
+    // Event listener for confirmed delete of password request
+    $('#confirmDeletePasswordRequest').click(function() {
+        var id = $(this).attr('data-id');
+        // Perform delete action for password request with ID 'id'
+        deletePasswordRequestFromDatabase(id);
+    });
+
+    // Placeholder function to delete a prayer request from the database
+    function deletePrayerRequestFromDatabase(id) {
+        // Here you should perform the actual delete operation using AJAX or PHP
+        // For demonstration purposes, let's log the ID to the console
+        console.log("Deleting prayer request with ID: " + id);
+        // After successful delete, you may want to refresh the page or update the UI
+        // Example: window.location.reload();
+        // Hide the modal
+        $('#deletePrayerRequestModal').modal('hide');
+    }
+
+    // Placeholder function to delete a password request from the database
+    function deletePasswordRequestFromDatabase(id) {
+        // Here you should perform the actual delete operation using AJAX or PHP
+        // For demonstration purposes, let's log the ID to the console
+        console.log("Deleting password request with ID: " + id);
+        // After successful delete, you may want to refresh the page or update the UI
+        // Example: window.location.reload();
+        // Hide the modal
+        $('#deletePasswordRequestModal').modal('hide');
     }
 </script>
 
@@ -285,27 +435,4 @@ $passwordRequests = getPasswordRequestsFromDatabase($conn);
 include('includes/script.php');
 ?>
 
-<!-- JavaScript functions for edit, delete, and response handling -->
-<script>
-    function editPrayerRequest(id) {
-        // Add your edit logic here
-        alert('Edit prayer request with ID ' + id);
-    }
 
-    function deletePrayerRequest(id) {
-        // Add your delete logic here
-        alert('Delete prayer request with ID ' + id);
-    }
-
-    function editPasswordRequest(id) {
-        // Add your edit logic here
-        alert('Edit password request with ID ' + id);
-    }
-
-    function deletePasswordRequest(id) {
-        // Add your delete logic here
-        alert('Delete password request with ID ' + id);
-    }
-
-
-</script>

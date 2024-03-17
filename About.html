@@ -149,11 +149,53 @@
 
         p {
             color: #666; /* Medium-dark text color */
-            font-size: 18px; /* Medium font size for paragraphs */
+            font-size: 15px; /* Medium font size for paragraphs */
             line-height: 1.6; /* Increase line height for better readability */
             margin-bottom: 20px; /* Add bottom margin for spacing between paragraphs */
             font-weight: bold;
         }
+        .footer-container {
+    width: 100%;
+    background: linear-gradient(to right, #00093c, #2d0b00);
+    color: #fff;
+    padding: 4rem 2rem; /* Adjust horizontal padding */
+    border-top-left-radius: 100px;
+    font-size: 6px;
+    line-height: 20px;
+}
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.footer-heading {
+    flex-basis: 45%; /* Adjust the width of each footer section */
+    margin-bottom: 2rem; /* Add space between columns */
+    text-align: center; /* Center align content */
+}
+
+.footer-heading h2 {
+    margin-bottom: 1rem; /* Add space below heading */
+}
+
+.footer-heading.footer-4 {
+    flex-basis: 100%; /* Make the fourth footer section occupy full width */
+    order: 4; /* Set the order of the fourth section to be last */
+}
+
+.footer-heading p {
+    margin: 0; /* Reset margin for paragraphs */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 1150px) {
+    .footer-heading {
+        flex-basis: 100%; /* Stack columns on smaller screens */
+    }
+}
+
             </style>
     <!-- About Us Content -->
     <section id="about-us" class="mt-5">
@@ -241,32 +283,36 @@
 
 
             </section>
-            
-            <!-- Leadership Team Section -->
-            <section id="leadership-team" class="mt-5">
-                <h2 class="text-center mb-4">Leadership Team</h2>
-                <div class="row">
-                    <div class="col-lg-3 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Name</h5>
-                                <p class="card-text">Position</p>
-                                <p class="card-text">Email</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Add more leadership team cards as needed -->
-                </div>
-            </section>
+        
     
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         
+        <div class="footer-container">
+            <div class="footer">
+                <div class="footer-heading footer-1">
+                    <h2>About us</h2><br>
+                    <p>Welcome to All Nations Gospel Church (PEFA),<br> 
+                        where Christ is revealed through vibrant Bible teaching.<br> 
+                        Join us as we illuminate hearts with His truth and make Him known to all.</p>
+                </div>
+                <div class="footer-heading footer-2">
+                    <h2>Contact us</h2><br>
+                        <P class="email-id">pefachurchgithurai@gmail.com</P>
+                        <h4>+254 797 929470</h4>
+                </div>
+                <div class="footer-heading footer-3">
+                    <h2>Location</h2>
+                    <p>Ngumba Road Off Thika Nairobi Superhigway</p>
+                    <p>Nairobi</p>
+                    <p>P.O. BOX 00400</p>
+                </div>
                <!-- Copyright notice -->
         <div class="footer-heading footer-4">
             <p>&copy; <span id="currentYear"></span> PEFA Githurai Cathedral Media. All rights reserved.</p>
         </div>
+    </div>
     
 </div>
 
