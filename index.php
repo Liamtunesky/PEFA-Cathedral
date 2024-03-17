@@ -18,7 +18,7 @@ if (!$connection) {
 $sql = "SELECT * FROM members";
 $result = mysqli_query($connection, $sql);
 ?>
-            <div id="layoutSidenav_content">
+<div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Church Dashboard</h1>
@@ -39,10 +39,11 @@ $result = mysqli_query($connection, $sql);
                             <th>Last Name</th>
                             <th>Contact</th>
                             <th>Email</th>
-                            <th>Date of Birth</th>
                             <th>Age</th>
                             <th>Join date</th>
-                            <th>Active Status</th>
+                            <th>Role</th>
+                            <th>Ministry</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -55,14 +56,17 @@ $result = mysqli_query($connection, $sql);
                             echo "<td>" . $row['last_name'] . "</td>";
                             echo "<td>" . $row['contact'] . "</td>";
                             echo "<td>" . $row['email'] . "</td>";
-                            echo "<td>" . $row['DOB'] . "</td>";
-                            echo "<td>" . $row['DOA'] . "</td>";
-                            echo "<td>" . $row['active_status'] . "</td>";
+                           
                             // Calculate age from date of birth
                             $dob = new DateTime($row['DOB']);
                             $now = new DateTime();
                             $age = $now->diff($dob)->y;
                             echo "<td>" . $age . "</td>";
+                            echo "<td>" . $row['DOA'] . "</td>";
+                            echo "<td>" . $row['role'] . "</td>";
+                            echo "<td>" . $row['ministry'] . "</td>";
+                           
+                            
                             echo "</tr>";
                         }
                         ?>
@@ -85,7 +89,7 @@ $result = mysqli_query($connection, $sql);
                     </div>
                 </footer>
             </div>
-        </div>
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

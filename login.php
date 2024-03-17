@@ -1,9 +1,34 @@
 <?php
-session_start(); // Start the session at the very beginning
+session_start();
+include('database.php');
 
-if (isset($_SESSION["user"])) {
-   header("Location: admin.php");
-   exit; // exit after redirecting
+// Check if the user is already logged in
+if (isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve username and password from the form
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    // Prepare and execute the SQL query to fetch user details
+    $sql = "SELECT * FROM admin WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    // Check if user exists and verify password
+    if ($user && password_verify($password, $user["password"])) {
+        $_SESSION["username"] = $user['username'];
+        header("Location: index.php");
+        exit;
+    } else {
+        $error_message = "Invalid username or password.";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -12,12 +37,15 @@ if (isset($_SESSION["user"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+</head>
+<body>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -54,12 +82,13 @@ if (isset($_SESSION["user"])) {
         .login-container input[type="text"],
         .login-container input[type="password"],
         .login-container input[type="submit"] {
-            width: calc(100% - 24px);
+            width: calc(100% - 10px);
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 3px;
             box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
             padding-right: 36px; /* Added padding for icon */
         }
         .login-container input[type="password"] {
@@ -87,61 +116,61 @@ if (isset($_SESSION["user"])) {
         .login-container input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .form-group{
+            margin-bottom:30px;
+            position: relative;
+        }
         .password-toggle {
             position: absolute;
-            right: 20px;
-            top: 57%;
+            top: 20%;
+            right: 30px;
             transform: translateY(-50%);
             cursor: pointer;
         }
-    </style>
-</head>
-<body>
-<div class="login-container">
-<?php
-    if (isset($_POST["login"])) {
-        $username = $_POST["username"];
-        $password = $_POST["password"];
-        require_once "database.php";
-        $sql = "SELECT * FROM admin WHERE username = '$username'";
-        $result = mysqli_query($conn, $sql);
-        $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        if ($user) {
-            if (password_verify($password, $user["password"])) {
-                $_SESSION["user"] = $user['username']; // Set session to username or other unique identifier
-                header("Location: admin.php");
-                exit; // exit after redirecting
-            } else {
-                echo "<div class='alert alert-danger'>Password does not match</div>";
-            }
-        } else {
-            echo "<div class='alert alert-danger'>Username does not match</div>";
+        .password-toggle i {
+            color: #aaa;
         }
-    }
-    ?>
+        .form-btn {
+    margin-top: 20px; /* Add space above button */
+}
+
+.link-forgot-password {
+    color: #333; /* Set link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.link-forgot-password:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+    </style>
+<div class="login-container">
     <h2>Login</h2>
+    <?php if(isset($error_message)): ?>
+        <div class="alert alert-danger"><?php echo $error_message; ?></div>
+    <?php endif; ?>
     <form action="login.php" method="post" id="loginForm">
-        <input type="text" name="username" id="username" placeholder="Username" required>
-        <i class="far fa-envelope"></i> <!-- Moved envelope icon here -->
-        <input type="password" name="password" id="password" placeholder="Password" required>
-        <span class="password-toggle" onclick="togglePasswordVisibility()">
-            <i class="far fa-eye" aria-hidden="true"></i>
-        </span>
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Username:">
+        </div>
+        <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password:" id="password">
+                <div class="password-toggle" onclick="togglePasswordVisibility('password')">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </div>
         <div class="form-btn">
             <input type="submit" value="Login" name="login" class="btn btn-primary">
         </div>
     </form>
     <div style="text-align: center;">
-        <a href="forgot_password.html">Forgot Password?</a> <!-- Link to the password reset form -->
+        <a href="forgot_password.php">Forgot Password?</a> <!-- Link to the password reset form -->
     </div>
 </div>
 
 <!-- Add Font Awesome Script -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-
 <script>
-    function togglePasswordVisibility() {
-        var passwordInput = document.getElementById("password");
+    function togglePasswordVisibility(inputId) {
+        var passwordInput = document.getElementById(inputId);
         var passwordToggleIcon = document.querySelector(".password-toggle i");
 
         if (passwordInput.type === "password") {

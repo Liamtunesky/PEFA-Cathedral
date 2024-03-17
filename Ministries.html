@@ -31,8 +31,83 @@
                     <li><a href="About.html">About Us</a></li>
                     <li><a href="Contact.html">Contact</a></li>
                     <li><a href="Ministries.html">Ministries</a></li>
-                    <li><a href="Store.html">Store</a></li>
+                    <li><a href="Store.php">Store</a></li>
                 </ul>
         </nav>
+        <style>
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ministry-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.ministry {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: calc(33.33% - 20px); /* Adjust as needed for responsiveness */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out; /* Adding transition effect */
+    cursor: pointer;
+}
+
+.ministry:hover {
+    transform: scale(1.05); /* Applying transform on hover */
+}
+
+.ministry img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.ministry h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.ministry p {
+    font-size: 16px;
+}
+        </style>
+        <div class="ministry-container">
+            <div class="ministry">
+                <img src="profile pictures/men ministry" alt="Men's Ministry">
+                <h2>Men's Ministry</h2>
+                <p>This ministry focuses on empowering men spiritually and emotionally.</p>
+            </div>
+            <div class="ministry">
+                <img src="profile pictures/women ministry" alt="Women's Ministry">
+                <h2>Women's Ministry</h2>
+                <p>This ministry caters to the spiritual and social needs of women.</p>
+            </div>
+            <div class="ministry">
+                <img src="profile pictures/Youth ministry.jpg" alt="Youth Ministry">
+                <h2>Youth Ministry</h2>
+                <p>Dedicated to engaging and nurturing the youth in their faith journey.</p>
+            </div>
+            <div class="ministry">
+                <img src="profile pictures/ushers.jpg" alt="Ushers Ministry">
+                <h2>Ushers Ministry</h2>
+                <p>Serving the congregation by ensuring orderliness during services.</p>
+            </div>
+            <div class="ministry">
+                <img src="profile pictures/media team.jpg" alt="Media Ministry">
+                <h2>Media Ministry</h2>
+                <p>Utilizing media to spread the message of the gospel effectively.</p>
+            </div>
+            <div class="ministry">
+                <img src="profile pictures/sunday school" alt="Sunday School Ministry">
+                <h2>Sunday School Ministry</h2>
+                <p>Educating and nurturing children in their understanding of Christianity.</p>
+            </div>
+        </div>
 </body>
 </html>

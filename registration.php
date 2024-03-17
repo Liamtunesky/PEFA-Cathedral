@@ -26,6 +26,7 @@ if (isset($_SESSION["user"])) {
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientBackground 15s ease infinite;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
         @keyframes gradientBackground {
             0% {
@@ -38,13 +39,13 @@ if (isset($_SESSION["user"])) {
                 background-position: 0% 50%;
             }
         }
-        .login-container{
-            max-width: 600px;
-            margin:0 auto;
-            padding:50px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-            position: relative;
-        }
+        .login-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
         .form-group{
             margin-bottom:30px;
             position: relative;
@@ -73,18 +74,7 @@ if (isset($_SESSION["user"])) {
             $passwordconfirm = $_POST["confirm_password"];
             $contact = $_POST["contact"];
 
-            // Handle profile picture upload if provided
-            if (!empty($_FILES['profile_pic']['name'])) {
-                $uploadDir = 'uploads/';
-                $uploadFile = $uploadDir . basename($_FILES['profile_pic']['name']);
-
-                if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $uploadFile)) {
-                    echo "<div class='alert alert-success'>Profile picture uploaded successfully.</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>Failed to upload profile picture.</div>";
-                }
-            }
-
+            
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             $errors = array();
@@ -127,10 +117,7 @@ if (isset($_SESSION["user"])) {
         }
         ?>
         <form action="registration.php" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="profile_pic">Profile Picture:</label>
-                <input type="file" class="form-control" id="profile_pic" name="profile_pic">
-            </div>
+            
             <div class="form-group">
                 <input type="text" class="form-control" name="first_name" placeholder="First Name:">
             </div>

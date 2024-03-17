@@ -280,33 +280,35 @@ section {
 }
 .footer-container {
   width: 100%;
-  background: linear-gradient(to right, #00093c, #2d0b00);
-  color: #fff;
-  padding: 4rem 0;
-  border-top-left-radius: 125px;
-  font-size: 13px;
-  line-height: 20px;
-}
-
-.footer {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  padding: 0 2rem; /* Adjust horizontal padding */
-}
-
-.footer-heading {
-  flex: 1; /* Equal width for each column */
-  margin-bottom: 2rem; /* Add space between columns */
+  .footer-container {
+    width: 100%;
+    background: linear-gradient(to right, #00093c, #2d0b00);
+    color: #fff;
+    padding: 4rem 2rem; /* Adjust horizontal padding */
+    border-top-left-radius: 125px;
+    font-size: 13px;
+    line-height: 20px;
+  }
   
-}
-
-.footer-heading h2 {
-  margin-bottom: 1rem; /* Add space below heading */
-  color: #fff;
-}
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  
+  .footer-heading {
+    flex: 1; /* Equal width for each column */
+    margin-bottom: 2rem; /* Add space between columns */
+    text-align: center; /* Center align content */
+  }
+  
+  .footer-heading h2 {
+    margin-bottom: 1rem; /* Add space below heading */
+  }
+  
+  .footer-heading.footer-4 {
+    margin-top: auto; /* Push this item to the bottom */
+  }
 
 .footer-heading p {
   margin: 0; /* Reset margin for paragraphs */
@@ -319,32 +321,6 @@ section {
     text-align: center; /* Center align content */
   }
 }
-
-.slideshow-container {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-.mySlides {
-  display: none;
-}
-
-.fade {
-  animation-name: fade;
-  animation-duration: 3s;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0.4;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .contact-container {
@@ -429,7 +405,7 @@ h1 {
   text-align: center;
 }
 
-.products {
+/*.products {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -476,7 +452,7 @@ h1 {
 .product-info button:hover {
   background-color: #0056b3;
 }
-
+*/
 .login-container{
   max-width: 600px;
   margin:0 auto;

@@ -42,20 +42,7 @@
             <button class="button" onclick=location="login.php"><span>Login</span></button>
             </ul>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-            <script>
-                $(function(){
-                    $(".toggle").on("click", function(){
-                        if($(".menu").hasClass("active")){
-                            $(".menu").removeClass("active");
-                            $(this).find("a").html("<ion-icon name='menu-outline'></ion-icon>");
-                        } else {
-                            $(".menu").addClass("active");
-                            $(this).find("a").html("<ion-icon name='close-outline'></ion-icon>");
-                        }
-                    }); 
-                });
-            </script>
-            </script>
+            
         </nav>
         <div class="homepage">
             <video autoplay loop muted plays-inline class="background-clip">
@@ -66,18 +53,37 @@
             <a href="https://www.youtube.com/@PEFAGithuraiCathedral">Watch us Online</a>
             </div>
         </div>
-        <script>
-            window.addEventListener('scroll', function() {
-    let scroll = window.scrollY;
-    let parallax = document.querySelector('.parallax');
-    parallax.style.transform = 'translateY(' + scroll * 0.5 + 'px)';
-});
-        </script>
+        <!-- Prayer request chat icon -->
+        <div class="prayer-request-icon" onclick="openPrayerRequestPopup()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
+                <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"/>
+                <text x="20" y="32" font-size="12" fill="black">Pray with us</text>
+            </svg>
+        </div>
+
+    <!-- Prayer request popup window -->
+    <div id="prayerRequestPopup" class="prayer-request-popup">
+        <div class="prayer-request-content">
+            <span class="close" onclick="closePrayerRequestPopup()">&times;</span>
+            <h2>Prayer Request</h2>
+            <form id="prayerForm" method="POST">
+                <!-- Your form fields go here -->
+                <input type="text" name="firstname" placeholder="First Name" required><br>
+                <input type="text" name="lastname" placeholder="Last Name" required><br>
+                <input type="email" name="email" placeholder="Email" required><br>
+                <input type="tel" name="contact" placeholder="Enter your contact (e.g., 0700 000 000)" maxlength="12" pattern="[0-9]{4} [0-9]{3} [0-9]{3}" title="Please enter a valid contact number in the format 0700 000 000" required><br>
+                <textarea name="request" placeholder="Your Prayer Request" required></textarea><br>
+                <button type="button" onclick="submitForm()">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="notification"></div>
+        
             <div class="parallax-container">
                 <div class="parallax"></div>
             </div>
             <section>
-                <div class="container">
+         <div class="container">
             <div class="fusion-text fusion-text-1" style="text-align: center; font-family: 'Abril Fatface', serif; font-size: 18pt;">
                 <img decoding="async" class="alignnone wp-image-6350 lazyautosizes lazyloaded" src="https://www.mavunochurch.org/wp-content/uploads/2021/01/197600-200-copy.png" data-orig-src="https://www.mavunochurch.org/wp-content/uploads/2021/01/197600-200-copy.png" alt="" width="54" height="54" srcset="https://www.mavunochurch.org/wp-content/uploads/2021/01/197600-200-copy-66x66.png 66w, https://www.mavunochurch.org/wp-content/uploads/2021/01/197600-200-copy-150x150.png 150w, https://www.mavunochurch.org/wp-content/uploads/2021/01/197600-200-copy.png 200w" data-srcset="https://www.mavunochurch.org/wp-content/uploads/2021/01/197600-200-copy-66x66.png 66w, https://www.mavunochurch.org/wp-content/uploads/2021/01/197600-200-copy-150x150.png 150w, https://www.mavunochurch.org/wp-content/uploads/2021/01/197600-200-copy.png 200w" data-sizes="auto" data-orig-sizes="(max-width: 54px) 100vw, 54px" sizes="54px"> 
                 <p><strong>Welcome To Pefa Githurai Cathedral</strong></p>
@@ -93,59 +99,160 @@
                                  <li>To spread the teachings of Christ through outreach programs</li>
                                  <li>To provide a welcoming and inclusive environment for all</li>
                                 </ul>
-                    </div>
-                    <div class="box vision">
+            </div>
+            <div class="box vision">
                         <h3>Our Vision</h3>
                         <ul>
                         <li>To create a world where everyone lives in harmony and peace</li>
                         <li>To be a beacon of hope and inspiration for those in need</li>
                         <li>To foster spiritual growth and development in our congregation</li>
                         </ul>
-                    </div>
-                </div>
+            </div>
+        </div>
                 
         </section>
         <style>
+           /* Style for the prayer request icon */
+    .prayer-request-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: #007bff; /* Change background color as needed */
+        color: #fff; /* Change icon color as needed */
+        z-index: 9999; /* Ensure it's above other elements */
+    }
+
+    /* Style for the prayer request popup window */
+    .prayer-request-popup {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        z-index: 9999; /* Ensure it's above other elements */
+    }
+
+    .prayer-request-content {
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* Adjust the width */
+    max-width: 500px; /* Limit maximum width */
+    padding: 40px; /* Increase padding for better spacing */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
+}
+.prayer-request-content input[type="text"],
+.prayer-request-content input[type="email"],
+.prayer-request-content input[type="tel"],
+.prayer-request-content textarea {
+    width: 100%; /* Set the width to 100% */
+    padding: 10px; /* Adjust padding for better appearance */
+    margin-bottom: 15px; /* Increase margin for better spacing */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
             /* CSS styles for the video section */
             #video-section {
-                text-align: center; /* Center the video */
-                margin-bottom: 50px; /* Add some space between video section and footer */
-            }
-    
-            .video-container {
-                position: relative;
-                display: inline-block;
-            }
-    
-            .video-container video {
-                max-width: 100%;
-                height: auto;
-            }
-    
-            .play-button {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 80px;
-                height: 80px;
-                background-color: rgba(0, 0, 0, 0.5);
-                border-radius: 50%;
-                cursor: pointer;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-    
-            .play-button::after {
-                content: "\25B6";
-                font-size: 2em;
-                color: #fff;
-            }
+    text-align: center; /* Center the video */
+    margin-bottom: 50px; /* Add some space between video section and footer */
+}
+
+.video-container {
+    display: inline-block;
+    max-width: 800px; /* Set a maximum width for the video container */
+    margin: 0 auto; /* Center the video container horizontally */
+    box-shadow: #2d0b00;
+}
+
+.video-container video {
+    width: 100%; /* Ensure the video fills its container */
+    height: auto;
+}
+
+/*.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-button::after {
+    content: "\25B6";
+    font-size: 2em;
+    color: #fff;
+}*/
+.footer-container {
+    width: 100%;
+    background: linear-gradient(to right, #00093c, #2d0b00);
+    color: #fff;
+    padding: 4rem 2rem; /* Adjust horizontal padding */
+    border-top-left-radius: 155px;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.footer-heading {
+    flex-basis: 45%; /* Adjust the width of each footer section */
+    margin-bottom: 2rem; /* Add space between columns */
+    text-align: center; /* Center align content */
+}
+
+.footer-heading h2 {
+    margin-bottom: 1rem; /* Add space below heading */
+}
+
+.footer-heading.footer-4 {
+    flex-basis: 100%; /* Make the fourth footer section occupy full width */
+    order: 4; /* Set the order of the fourth section to be last */
+}
+
+.footer-heading p {
+    margin: 0; /* Reset margin for paragraphs */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 1150px) {
+    .footer-heading {
+        flex-basis: 100%; /* Stack columns on smaller screens */
+    }
+}
+
         </style>
         <section id="video-section">
             <div class="video-container">
-                <video id="video" src="/images/intro.mp4" controls></video>
+                <video id="video" src="images/intro.mp4" controls></video>
                 <div class="play-button"></div>
             </div>
         </section>
@@ -176,8 +283,11 @@
         <div class="footer-heading footer-4">
             <p>&copy; <span id="currentYear"></span> PEFA Githurai Cathedral Media. All rights reserved.</p>
         </div>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
+    </div>
+</div>
+<script src="script.js"></script>
+<script>
+      document.addEventListener("DOMContentLoaded", function() {
                 const video = document.getElementById('video');
                 const playButton = document.querySelector('.play-button');
         
@@ -200,14 +310,62 @@
                     }
                 });
             });
-        </script>
-</div>
-<script src="script.js"></script>
-<script>
+     $(function(){
+                    $(".toggle").on("click", function(){
+                        if($(".menu").hasClass("active")){
+                            $(".menu").removeClass("active");
+                            $(this).find("a").html("<ion-icon name='menu-outline'></ion-icon>");
+                        } else {
+                            $(".menu").addClass("active");
+                            $(this).find("a").html("<ion-icon name='close-outline'></ion-icon>");
+                        }
+                    }); 
+                });
+     window.addEventListener('scroll', function() {
+    let scroll = window.scrollY;
+    let parallax = document.querySelector('.parallax');
+    parallax.style.transform = 'translateY(' + scroll * 0.5 + 'px)';
+});
     // JavaScript to dynamically update the current year
     document.getElementById("currentYear").innerText = new Date().getFullYear();
+     // Function to open the prayer request popup
+     function openPrayerRequestPopup() {
+        document.getElementById('prayerRequestPopup').style.display = 'block';
+    }
+
+    // Function to close the prayer request popup
+    function closePrayerRequestPopup() {
+        document.getElementById('prayerRequestPopup').style.display = 'none';
+    }
+    function submitForm() {
+        var form = document.getElementById("prayerForm");
+        var formData = new FormData(form);
+
+        // Send form data to the server using fetch API
+        fetch("submit_prayer_request.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // Display success message
+                document.getElementById("notification").innerText = "Prayer request submitted successfully!";
+                // Clear form fields
+                form.reset();
+            } else {
+                throw new Error("Failed to submit prayer request");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            // Display error message
+            document.getElementById("notification").innerText = "Failed to submit prayer request. Please try again later.";
+        });
+
+    }
+    
 </script>
-            </div>
-          </div>
+            
+          
 </body>
 </html>
